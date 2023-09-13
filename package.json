@@ -1,0 +1,16 @@
+{
+     "name": "Arr_dev",
+     "version": "0.0.1",
+     "description": "WhatsappBot",
+     "main": "index.js",
+     "type": "commonjs",
+     "scripts": {
+          "start": "node index.js"
+     },
+     "dependencies": {
+          "@adiwajshing/keyed-db": "latest",
+          "@whiskeysockets/baileys": "^6.4.0",
+          "fs": "0.0.1-security",
+          "pino": "^7.0.5"
+     }
+}
