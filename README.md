@@ -1,6 +1,6 @@
 ## Dependencies
 
-```
+```sh
 node-cache
 readline
 @whiskeysockets/baileys: v6.4.0^
@@ -10,7 +10,7 @@ readline
 
 <p>1.</p>
 
-```
+```js
    const { makeCacheableSignalKeyStore, PHONENUMBER_MCC } = require("@whiskeysockets/baileys")
 
    const NodeCache = require("node-cache");
@@ -19,7 +19,7 @@ readline
 
 <p>2.</p>
 
-```
+```js
    const usePairingCode = true;
    const useMobile = false;
    const useStore = false;
@@ -27,7 +27,7 @@ readline
 
 <p>3.</p>
 
-```
+```js
 const MAIN_LOGGER = pino({ timestamp: () => `,"time":"${new Date().toJSON()}"` });
 
 const logger = MAIN_LOGGER.child({});
@@ -58,7 +58,7 @@ const P = require("pino")({
 
 <p>if you already have a variable store, then You have to change the name, because the store variable is different from before</p>
 
-```
+```js
  // change variable name
  //          |
   const stores = makeInMemoryStore({
@@ -68,7 +68,7 @@ const P = require("pino")({
 
 # Conection option
 
-```
+```js
   async function start() {
   const sock = makeWASocket({
       version,
