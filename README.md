@@ -70,6 +70,8 @@ const P = require("pino")({
 
 ```js
   async function start() {
+  let { state, saveCreds } = await useMultiFileAuthState(sessionName);
+   let { version, isLatest } = await fetchLatestBaileysVersion();
   const sock = makeWASocket({
       version,
       logger: P, // P for hidden log console
