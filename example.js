@@ -93,15 +93,20 @@ async function start() {
       if (events["connection.update"]) {
          const update = events["connection.update"];
          const { connection, lastDisconnect } = update;
+         if (connection === "open"){
+            console.log("connected")
+           
+         }
+
          if (connection === "close") {
             if (
                lastDisconnect &&
                lastDisconnect.error &&
                lastDisconnect.error.output &&
-               lastDisconnect.error.output.statusCode !==
-                  DisconnectReason.loggedOut
+               lastDisconnect.error.output.statusCode !== 401
+                 
             ) {
-               startsock();
+               start();
             } else {
                console.log("Connection closed. You are logged out.");
             }
