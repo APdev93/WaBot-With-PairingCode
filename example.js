@@ -29,9 +29,7 @@ const fs = require("fs");
 const NodeCache = require("node-cache");
 const readline = require("readline");
 
-const useStore = false;
-const usePairingCode = true;
-const useMobile = false;
+const usePairingCode = true; // change to false for use qrcode
 
 const MAIN_LOGGER = pino({
    timestamp: () => `,"time":"${new Date().toJSON()}"`,
@@ -39,14 +37,6 @@ const MAIN_LOGGER = pino({
 
 const logger = MAIN_LOGGER.child({});
 logger.level = "trace";
-
-const store = useStore ? makeInMemoryStore({ logger }) : undefined;
-store?.readFromFile("./session");
-
-// Save every 1m
-setInterval(() => {
-   store?.writeToFile("./session");
-}, 10000 * 6);
 
 const msgRetryCounterCache = new NodeCache();
 
@@ -58,7 +48,7 @@ const question = (text) => new Promise((resolve) => rl.question(text, resolve));
 
 const P = require("pino")({
    level: "silent",
-});
+}); // pino level silent for hidden logger 
 
 async function start() {
    let { state, saveCreds } = await useMultiFileAuthState(sessionName);
@@ -67,7 +57,6 @@ async function start() {
       version,
       logger: P, // P for hidden log console
       printQRInTerminal: !usePairingCode, // If you want to use scan, then change the value of this variable to false
-      mobile: useMobile,
       browser: ["chrome (linux)", "", ""], // If you change this then the pairing code will not work
       auth: {
          creds: state.creds,
@@ -80,9 +69,6 @@ async function start() {
    sock.ev.on("creds.update", saveCreds); // to save creds
 
    if (usePairingCode && !sock.authState.creds.registered) {
-      if (useMobile) {
-         throw new Error("cannot use mobile api");
-      }
       const phoneNumber = await question("Enter your active whatsapp number: ");
       const code = await sock.requestPairingCode(phoneNumber);
       console.log(`pairing with this code: ${code}`);
