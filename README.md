@@ -21,8 +21,7 @@ readline
 
 ```js
    const usePairingCode = true;
-   const useMobile = false;
-   const useStore = false;
+   const useStore = false
 ```
 
 <p>3.</p>
@@ -54,18 +53,6 @@ const P = require("pino")({
 });
 ```
 
-# NOTICE
-
-<p>if you already have a variable store, then You have to change the name, because the store variable is different from before</p>
-
-```js
- // change variable name
- //          |
-  const stores = makeInMemoryStore({
-  logger: pino().child({ level: "silent", stream: "store" }),
-  });
-```
-
 # Conection option
 
 ```js
@@ -76,7 +63,6 @@ const P = require("pino")({
       version,
       logger: P, // P for hidden log console
       printQRInTerminal: !usePairingCode, // If you want to use scan, then change the value of this variable to false
-      mobile: useMobile,
       browser: ["chrome (linux)", "", ""], // If you change this then the pairing code will not work
       auth: {
          creds: state.creds,
@@ -87,11 +73,8 @@ const P = require("pino")({
   store?.bind(sock.ev);
 
   sock.ev.on("creds.update", saveCreds); // to save creds
-
+  
  if (usePairingCode && !sock.authState.creds.registered) {
-      if (useMobile) {
-         throw new Error("cannot use mobile api");
-      }
       const phoneNumber = await question(
          "Enter your active whatsapp number: "
       );
@@ -102,4 +85,4 @@ const P = require("pino")({
 start();
 ```
 
-<p>Thankyou for visit my github, please follow my haha</p>
+<p>Thankyou for visit my github</p>
