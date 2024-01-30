@@ -87,7 +87,7 @@ async function start() {
                lastDisconnect.error.output.statusCode !==
                   DisconnectReason.loggedOut
             ) {
-               startsock();
+               start();
             } else {
                console.log("Connection closed. You are logged out.");
             }
