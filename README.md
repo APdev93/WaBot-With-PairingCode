@@ -62,7 +62,7 @@ const P = require("pino")({
       version,
       logger: P, /** P for hidden logger log */
       printQRInTerminal: true, /** If you want to use scan, then change the value of this variable to false */
-      browser: Browser.ubuntu("CHROME"), /** There are several browser options, see documentation from @whiskeysockets/baileys
+      browser: Browsers.ubuntu("CHROME"), /** There are several browser options, see documentation from @whiskeysockets/baileys */
       auth: {
          creds: state.creds,
          keys: makeCacheableSignalKeyStore(state.keys, P),
