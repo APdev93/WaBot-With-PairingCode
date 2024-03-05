@@ -3,7 +3,7 @@
 ```sh
 node-cache
 readline
-@whiskeysockets/baileys: v6.4.0^
+@whiskeysockets/baileys: v6.6.0^
 ```
 
 # Variable and function
@@ -11,7 +11,7 @@ readline
 <p>1.</p>
 
 ```js
-   const { makeCacheableSignalKeyStore, PHONENUMBER_MCC } = require("@whiskeysockets/baileys")
+   const { makeCacheableSignalKeyStore, PHONENUMBER_MCC, Browsers } = require("@whiskeysockets/baileys")
 
    const NodeCache = require("node-cache");
    const readline = require("readline");
@@ -20,8 +20,7 @@ readline
 <p>2.</p>
 
 ```js
-   const usePairingCode = true;
-   const useStore = false
+   const useStore = false /** change to true if needed */
 ```
 
 <p>3.</p>
@@ -33,11 +32,11 @@ const logger = MAIN_LOGGER.child({});
 logger.level = "trace";
 
 const store = useStore ? makeInMemoryStore({ logger }) : undefined;
-store?.readFromFile("./session");
+store?.readFromFile("./store.json");
 
 // Save every 1m
 setInterval(() => {
-  store?.writeToFile("./session");
+  store?.writeToFile("./store.json");
 }, 10000 * 6);
 
 const msgRetryCounterCache = new NodeCache();
@@ -61,9 +60,9 @@ const P = require("pino")({
    let { version, isLatest } = await fetchLatestBaileysVersion();
   const sock = makeWASocket({
       version,
-      logger: P, // P for hidden log console
-      printQRInTerminal: !usePairingCode, // If you want to use scan, then change the value of this variable to false
-      browser: ["chrome (linux)", "", ""], // If you change this then the pairing code will not work
+      logger: P, /** P for hidden logger log */
+      printQRInTerminal: true, /** If you want to use scan, then change the value of this variable to false */
+      browser: Browser.ubuntu("CHROME"), /** There are several browser options, see documentation from @whiskeysockets/baileys
       auth: {
          creds: state.creds,
          keys: makeCacheableSignalKeyStore(state.keys, P),
@@ -74,7 +73,7 @@ const P = require("pino")({
 
   sock.ev.on("creds.update", saveCreds); // to save creds
   
- if (usePairingCode && !sock.authState.creds.registered) {
+ if (!sock.authState.creds.registered) {
       const phoneNumber = await question(
          "Enter your active whatsapp number: "
       );
