@@ -9,7 +9,7 @@
      },
      "dependencies": {
           "@adiwajshing/keyed-db": "latest",
-          "@whiskeysockets/baileys": "^6.4.0",
+          "@whiskeysockets/baileys": "^6.6.0",
           "node-cache": "latest",
           "readline": "latest"
      }
