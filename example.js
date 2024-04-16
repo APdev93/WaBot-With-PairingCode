@@ -5,6 +5,7 @@ const {
 	makeInMemoryStore,
 	PHONENUMBER_MCC,
 	useMultiFileAuthState,
+	Browsers,
 } = require("@whiskeysockets/baileys");
 const pino = require("pino");
 const NodeCache = require("node-cache");
